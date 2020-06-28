@@ -13,3 +13,11 @@ get '/' do
     erb :index
 end
 
+post '/cast' do
+    @titulo ="Obrigado por votar"
+    @voto = params['voto']
+    erb :cast
+end
+
+
+
