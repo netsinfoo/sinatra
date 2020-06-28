@@ -19,5 +19,10 @@ post '/cast' do
     erb :cast
 end
 
+get '/results' do
+    @votos = {'HAM' => 7, 'PIZ' => 5, 'SUS' => 3 }
+    erb :results
+end
+
 
 
