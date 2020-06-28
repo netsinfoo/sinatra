@@ -2,8 +2,8 @@
   <% Opcoes.each do |id, text| %>
     <tr>
       <th><%= text %></th>
-      <td><%= @votos[id] || 0 %>
-      <td><%= '#' * (@votos[id] || 0) %></td>
+      <td><%= @votes[id] || 0 %>
+      <td><%= '#' * (@votes[id] || 0) %></td>
     </tr>
   <% end %>
 </table>

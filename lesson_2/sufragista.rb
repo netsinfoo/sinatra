@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'yaml/store'
 # Estas são constantes globais.
 # Um dicionario.
 Opcoes = {
@@ -6,6 +7,7 @@ Opcoes = {
     'PIZ' => 'Pizza',
     'SUS' => 'Sushi',
     'LAM' => 'Lámen',
+    'MAC' => 'Macarrao',
   }
 
 get '/' do 
@@ -14,13 +16,21 @@ get '/' do
 end
 
 post '/cast' do
-    @titulo ="Obrigado por votar"
-    @voto = params['voto']
+    @titulo ="Obrigado por seu voto"
+    @vote = params['vote']
+    @store = YAML::Store.new 'votos.yml'
+    @store.transaction do
+        @store['votes'] ||= {}
+        @store['votes'][@vote] ||= 0
+        @store['votes'][@vote] += 1
+    end
     erb :cast
 end
 
 get '/results' do
-    @votos = {'HAM' => 7, 'PIZ' => 5, 'SUS' => 3 }
+    @titulo =  'Resultados até agora!!'
+    @store = YAML::Store.new 'votos.yml'
+    @votes = @store.transaction{@store['votes']}
     erb :results
 end
 
